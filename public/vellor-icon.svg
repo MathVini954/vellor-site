@@ -1,0 +1,30 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="vellor-bg" x1="36" y1="32" x2="220" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8F1"/>
+      <stop offset="0.5" stop-color="#EEF3FF"/>
+      <stop offset="1" stop-color="#E0ECFF"/>
+    </linearGradient>
+    <linearGradient id="vellor-stroke" x1="72" y1="70" x2="184" y2="182" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06101F"/>
+      <stop offset="1" stop-color="#142A4A"/>
+    </linearGradient>
+    <filter id="vellor-shadow" x="12" y="12" width="232" height="232" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="10"/>
+      <feGaussianBlur stdDeviation="12"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.0235294 0 0 0 0 0.0745098 0 0 0 0 0.156863 0 0 0 0.22 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
+    </filter>
+  </defs>
+  <g filter="url(#vellor-shadow)">
+    <rect x="28" y="20" width="200" height="200" rx="56" fill="url(#vellor-bg)"/>
+    <rect x="28.75" y="20.75" width="198.5" height="198.5" rx="55.25" stroke="white" stroke-opacity="0.7" stroke-width="1.5"/>
+    <path d="M77.7059 73H103.118L128 102.882L152.882 73H178.294L128 132.529L77.7059 73Z" fill="url(#vellor-stroke)"/>
+    <path d="M89.2941 109.353H111.824L128 128.235L144.176 109.353H166.706L128 155.118L89.2941 109.353Z" fill="url(#vellor-stroke)"/>
+    <path d="M101 146.529H120.176L128 155.706L135.824 146.529H155L128 179L101 146.529Z" fill="#F27131"/>
+  </g>
+</svg>

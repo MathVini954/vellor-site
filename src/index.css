@@ -148,7 +148,7 @@ img {
 
 .panel-cycle-card {
   position: absolute;
-  inset: 1rem;
+  inset: 0.75rem;
   opacity: 0;
   animation: panel-cycle 18s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
@@ -441,6 +441,12 @@ img {
   50% {
     background-position: 100% 50%;
     filter: saturate(1.08);
+  }
+}
+
+@media (min-width: 640px) {
+  .panel-cycle-card {
+    inset: 1rem;
   }
 }
 

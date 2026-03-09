@@ -303,11 +303,11 @@ function SectionHeading({
         {eyebrow}
       </p>
       <h2
-        className={`mt-4 text-3xl font-semibold tracking-[-0.04em] sm:text-4xl ${titleClassName}`}
+        className={`mt-4 text-[2rem] font-semibold leading-[1.04] tracking-[-0.05em] sm:text-4xl ${titleClassName}`}
       >
         {title}
       </h2>
-      <p className={`mt-4 text-base leading-8 ${descriptionClassName}`}>
+      <p className={`mt-4 text-[15px] leading-7 sm:text-base sm:leading-8 ${descriptionClassName}`}>
         {description}
       </p>
     </div>
@@ -316,12 +316,12 @@ function SectionHeading({
 
 function ManagementAccessCard() {
   return (
-    <div className="grid h-full gap-6 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.72fr)]">
-      <article className="overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(30,27,40,0.94),rgba(4,16,44,0.96))] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-        <div className="h-full rounded-[1.5rem] bg-[radial-gradient(circle_at_top,rgba(255,154,108,0.12),transparent_28%),linear-gradient(180deg,rgba(14,18,32,0.62),rgba(3,10,28,0.28))] p-6">
+    <div className="grid h-full gap-4 overflow-auto hide-scrollbar lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.72fr)] lg:gap-6">
+      <article className="overflow-hidden rounded-[1.7rem] border border-white/10 bg-[linear-gradient(180deg,rgba(30,27,40,0.94),rgba(4,16,44,0.96))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] sm:rounded-[2rem] sm:p-6">
+        <div className="h-full rounded-[1.35rem] bg-[radial-gradient(circle_at_top,rgba(255,154,108,0.12),transparent_28%),linear-gradient(180deg,rgba(14,18,32,0.62),rgba(3,10,28,0.28))] p-5 sm:rounded-[1.5rem] sm:p-6">
           <div className="flex items-start gap-4">
-            <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/10 text-lg font-semibold text-white">
-              M
+            <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/10">
+              <img src="/vellor-icon.svg" alt="" className="h-10 w-10 rounded-[1rem]" />
             </span>
             <div>
               <p className="text-xs uppercase tracking-[0.34em] text-white/72">
@@ -337,10 +337,10 @@ function ManagementAccessCard() {
             Acesso do restaurante e da equipe
           </div>
 
-          <h4 className="mt-10 max-w-[26rem] text-4xl font-semibold leading-[1.18] tracking-[-0.04em] text-white">
+          <h4 className="mt-8 max-w-[26rem] text-[2rem] font-semibold leading-[1.08] tracking-[-0.05em] text-white sm:mt-10 sm:text-4xl sm:leading-[1.18]">
             Acompanhe pedidos, cardápio e atendimento em um só lugar
           </h4>
-          <p className="mt-6 max-w-[30rem] text-lg leading-9 text-white/74">
+          <p className="mt-5 max-w-[30rem] text-[15px] leading-7 text-white/74 sm:mt-6 sm:text-lg sm:leading-9">
             Monitore o fluxo do dia, acompanhe a cozinha e mantenha sua equipe
             alinhada com uma interface pensada para a rotina real do restaurante.
           </p>
@@ -362,11 +362,11 @@ function ManagementAccessCard() {
         </div>
       </article>
 
-      <article className="rounded-[2rem] bg-[#f4f5f6] p-6 text-[#03132d] shadow-[0_24px_60px_rgba(0,0,0,0.22)]">
+      <article className="rounded-[1.7rem] bg-[#f4f5f6] p-5 text-[#03132d] shadow-[0_24px_60px_rgba(0,0,0,0.22)] sm:rounded-[2rem] sm:p-6">
         <span className="inline-flex rounded-full bg-[#fff1eb] px-4 py-2 text-sm font-medium text-[#ef5f22]">
           Acesso do restaurante
         </span>
-        <h3 className="mt-6 text-[2.2rem] font-semibold tracking-[-0.04em]">
+        <h3 className="mt-5 text-[1.9rem] font-semibold tracking-[-0.05em] sm:mt-6 sm:text-[2.2rem]">
           Entrar no painel
         </h3>
         <p className="mt-4 text-base leading-8 text-[#4c6488]">
@@ -396,7 +396,7 @@ function ManagementAccessCard() {
           Entrar
         </button>
 
-        <div className="mt-4 grid grid-cols-2 gap-3">
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <button
             type="button"
             className="rounded-[1rem] border border-[#d4dce8] px-4 py-4 text-sm text-[#2e466a]"
@@ -417,11 +417,11 @@ function ManagementAccessCard() {
 
 function ManagementDashboardCard() {
   return (
-    <div className="grid h-full grid-cols-[220px_minmax(0,1fr)] overflow-hidden rounded-[2rem] bg-[#f3f5f7] text-[#03132d] shadow-[0_24px_60px_rgba(0,0,0,0.22)] xl:grid-cols-[232px_minmax(0,1fr)]">
-      <aside className="border-r border-[#dbe3ee] bg-[linear-gradient(180deg,#171d44_0%,#151a3a_100%)] p-5 text-white">
+    <div className="grid h-full overflow-auto hide-scrollbar rounded-[1.7rem] bg-[#f3f5f7] text-[#03132d] shadow-[0_24px_60px_rgba(0,0,0,0.22)] md:grid-cols-[220px_minmax(0,1fr)] md:rounded-[2rem] xl:grid-cols-[232px_minmax(0,1fr)]">
+      <aside className="border-b border-[#dbe3ee] bg-[linear-gradient(180deg,#171d44_0%,#151a3a_100%)] p-5 text-white md:border-b-0 md:border-r">
         <div className="flex items-center gap-3">
-          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#6c6cff_0%,#9d4bff_100%)]">
-            <Sparkles className="h-5 w-5" />
+          <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#6c6cff_0%,#9d4bff_100%)] p-1">
+            <img src="/vellor-icon.svg" alt="" className="h-full w-full rounded-[1rem]" />
           </span>
           <div>
             <p className="text-xl font-semibold">Vellor</p>
@@ -469,9 +469,9 @@ function ManagementDashboardCard() {
         </div>
       </aside>
 
-      <div className="grid grid-cols-[minmax(0,1.28fr)_280px] xl:grid-cols-[minmax(0,1.35fr)_296px]">
-        <main className="p-6">
-          <div className="flex items-start justify-between gap-4 rounded-[1.5rem] border border-[#dbe3ee] bg-white p-5">
+      <div className="grid lg:grid-cols-[minmax(0,1.28fr)_280px] xl:grid-cols-[minmax(0,1.35fr)_296px]">
+        <main className="p-4 sm:p-5 lg:p-6">
+          <div className="flex flex-col gap-4 rounded-[1.5rem] border border-[#dbe3ee] bg-white p-4 sm:p-5 lg:flex-row lg:items-start lg:justify-between">
             <div className="flex items-start gap-4">
               <button
                 type="button"
@@ -481,7 +481,7 @@ function ManagementDashboardCard() {
               </button>
               <div>
                 <p className="text-sm text-[#5d7396]">Bistro da Esquina /</p>
-                <h3 className="text-[1.8rem] font-semibold tracking-[-0.04em] xl:text-[2rem]">
+                <h3 className="text-[1.55rem] font-semibold tracking-[-0.05em] sm:text-[1.8rem] xl:text-[2rem]">
                   Central de gestão
                 </h3>
                 <p className="mt-2 text-sm text-[#5d7396]">
@@ -495,8 +495,8 @@ function ManagementDashboardCard() {
             </div>
           </div>
 
-          <div className="mt-5 rounded-[1.7rem] border border-[#dbe3ee] bg-white p-5">
-            <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
+          <div className="mt-5 rounded-[1.7rem] border border-[#dbe3ee] bg-white p-4 sm:p-5">
+            <div className="grid gap-4 grid-cols-2 2xl:grid-cols-4">
               {managementStats.map((stat) => (
                 <div
                   key={stat.label}
@@ -505,7 +505,7 @@ function ManagementDashboardCard() {
                   <p className="text-xs uppercase tracking-[0.3em] text-[#7890b7]">
                     {stat.label}
                   </p>
-                    <p className="mt-5 text-[2.4rem] font-semibold tracking-[-0.05em] xl:text-4xl">
+                    <p className="mt-5 text-[2rem] font-semibold tracking-[-0.05em] sm:text-[2.4rem] xl:text-4xl">
                       {stat.value}
                     </p>
                   <p className="mt-3 text-sm text-[#50786a]">{stat.note}</p>
@@ -514,14 +514,14 @@ function ManagementDashboardCard() {
             </div>
           </div>
 
-          <div className="mt-5 rounded-[1.7rem] border border-[#dbe3ee] bg-white p-5">
-            <h4 className="text-[2rem] font-semibold tracking-[-0.04em]">
+          <div className="mt-5 rounded-[1.7rem] border border-[#dbe3ee] bg-white p-4 sm:p-5">
+            <h4 className="text-[1.7rem] font-semibold tracking-[-0.05em] sm:text-[2rem]">
               Módulos principais
             </h4>
             <p className="mt-2 text-sm text-[#5d7396]">
               Acesso direto às áreas que movimentam o restaurante no dia a dia.
             </p>
-            <div className="mt-5 grid gap-4 lg:grid-cols-2">
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {managementModules.map((module) => (
                 <article
                   key={module.title}
@@ -530,7 +530,7 @@ function ManagementDashboardCard() {
                   <p className="text-xs uppercase tracking-[0.3em] text-[#7890b7]">
                     {module.eyebrow}
                   </p>
-                  <h5 className="mt-5 text-[1.9rem] font-semibold tracking-[-0.04em]">
+                  <h5 className="mt-5 text-[1.55rem] font-semibold tracking-[-0.05em] sm:text-[1.9rem]">
                     {module.title}
                   </h5>
                   <p className="mt-4 text-base leading-8 text-[#5d7396]">
@@ -542,7 +542,7 @@ function ManagementDashboardCard() {
           </div>
         </main>
 
-        <aside className="border-l border-[#dbe3ee] bg-[#fbfcfd] p-5">
+        <aside className="border-t border-[#dbe3ee] bg-[#fbfcfd] p-4 sm:p-5 lg:border-l lg:border-t-0">
           <div className="rounded-[1.5rem] border border-[#dbe3ee] bg-white p-5">
             <div className="flex items-center justify-between gap-3">
               <h4 className="text-xl font-semibold">Fila recente</h4>
@@ -586,11 +586,11 @@ function ManagementDashboardCard() {
 
 function ManagementCatalogCard() {
   return (
-    <div className="grid h-full grid-cols-[220px_minmax(0,1fr)] overflow-hidden rounded-[2rem] bg-[#f3f5f7] text-[#03132d] shadow-[0_24px_60px_rgba(0,0,0,0.22)] xl:grid-cols-[232px_minmax(0,1fr)]">
-      <aside className="border-r border-[#dbe3ee] bg-[linear-gradient(180deg,#171d44_0%,#151a3a_100%)] p-5 text-white">
+    <div className="grid h-full overflow-auto hide-scrollbar rounded-[1.7rem] bg-[#f3f5f7] text-[#03132d] shadow-[0_24px_60px_rgba(0,0,0,0.22)] md:grid-cols-[220px_minmax(0,1fr)] md:rounded-[2rem] xl:grid-cols-[232px_minmax(0,1fr)]">
+      <aside className="border-b border-[#dbe3ee] bg-[linear-gradient(180deg,#171d44_0%,#151a3a_100%)] p-5 text-white md:border-b-0 md:border-r">
         <div className="flex items-center gap-3">
-          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#6c6cff_0%,#9d4bff_100%)]">
-            <Sparkles className="h-5 w-5" />
+          <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#6c6cff_0%,#9d4bff_100%)] p-1">
+            <img src="/vellor-icon.svg" alt="" className="h-full w-full rounded-[1rem]" />
           </span>
           <div>
             <p className="text-xl font-semibold">Vellor</p>
@@ -633,9 +633,9 @@ function ManagementCatalogCard() {
         </div>
       </aside>
 
-      <div className="grid grid-cols-[minmax(0,1.24fr)_280px] xl:grid-cols-[minmax(0,1.35fr)_296px]">
-        <main className="p-6">
-          <div className="flex items-start justify-between gap-4 rounded-[1.5rem] border border-[#dbe3ee] bg-white p-5">
+      <div className="grid lg:grid-cols-[minmax(0,1.24fr)_280px] xl:grid-cols-[minmax(0,1.35fr)_296px]">
+        <main className="p-4 sm:p-5 lg:p-6">
+          <div className="flex flex-col gap-4 rounded-[1.5rem] border border-[#dbe3ee] bg-white p-4 sm:p-5 lg:flex-row lg:items-start lg:justify-between">
             <div className="flex items-start gap-4">
               <button
                 type="button"
@@ -645,7 +645,7 @@ function ManagementCatalogCard() {
               </button>
               <div>
                 <p className="text-sm text-[#5d7396]">Bistro da Esquina /</p>
-                <h3 className="text-[1.8rem] font-semibold tracking-[-0.04em] xl:text-[2rem]">
+                <h3 className="text-[1.55rem] font-semibold tracking-[-0.05em] sm:text-[1.8rem] xl:text-[2rem]">
                   Cardápio do restaurante
                 </h3>
                 <p className="mt-2 text-sm text-[#5d7396]">
@@ -659,7 +659,7 @@ function ManagementCatalogCard() {
           </div>
 
           <div className="mt-5 rounded-[1.6rem] border border-[#dbe3ee] bg-white p-4">
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
               <div className="hide-scrollbar flex gap-3 overflow-x-auto">
                 {catalogTabs.map((tab) => (
                   <div
@@ -682,7 +682,7 @@ function ManagementCatalogCard() {
 
               <button
                 type="button"
-                className="rounded-[1rem] bg-[#131a43] px-5 py-3.5 text-sm font-semibold text-white"
+                className="w-full rounded-[1rem] bg-[#131a43] px-5 py-3.5 text-sm font-semibold text-white lg:w-auto"
               >
                 + Novo item
               </button>
@@ -690,9 +690,9 @@ function ManagementCatalogCard() {
           </div>
 
           <div className="mt-6">
-            <div className="flex items-start justify-between gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <h4 className="text-[2rem] font-semibold tracking-[-0.04em]">
+                <h4 className="text-[1.7rem] font-semibold tracking-[-0.05em] sm:text-[2rem]">
                   Todos os itens
                 </h4>
                 <p className="mt-2 text-sm text-[#5d7396]">
@@ -704,7 +704,7 @@ function ManagementCatalogCard() {
               </div>
             </div>
 
-            <div className="mt-5 grid gap-4 2xl:grid-cols-3 xl:grid-cols-2">
+            <div className="mt-5 grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
               {catalogItems.map((item) => (
                 <article
                   key={item.name}
@@ -713,13 +713,13 @@ function ManagementCatalogCard() {
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="h-56 w-full object-cover"
+                    className="h-48 w-full object-cover sm:h-56"
                     loading="lazy"
                   />
                   <div className="p-5">
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <h5 className="text-[1.8rem] font-semibold tracking-[-0.04em]">
+                        <h5 className="text-[1.5rem] font-semibold tracking-[-0.05em] sm:text-[1.8rem]">
                           {item.name}
                         </h5>
                         <p className="mt-2 text-sm text-[#5d7396]">{item.category}</p>
@@ -745,7 +745,7 @@ function ManagementCatalogCard() {
                     </div>
 
                     <div className="mt-6 flex items-center justify-between gap-3">
-                      <p className="text-[2.15rem] font-semibold tracking-[-0.05em]">
+                      <p className="text-[1.8rem] font-semibold tracking-[-0.05em] sm:text-[2.15rem]">
                         {item.price}
                       </p>
                       <span className="rounded-full bg-[#f5f7fa] px-3 py-1 text-sm text-[#4c6488]">
@@ -753,7 +753,7 @@ function ManagementCatalogCard() {
                       </span>
                     </div>
 
-                    <div className="mt-5 grid grid-cols-3 gap-3">
+                    <div className="mt-5 grid gap-3 sm:grid-cols-3">
                       <button
                         type="button"
                         className="rounded-[1rem] border border-[#dbe3ee] px-4 py-3 text-sm font-medium"
@@ -780,7 +780,7 @@ function ManagementCatalogCard() {
           </div>
         </main>
 
-        <aside className="border-l border-[#dbe3ee] bg-[#fbfcfd] p-5">
+        <aside className="border-t border-[#dbe3ee] bg-[#fbfcfd] p-4 sm:p-5 lg:border-l lg:border-t-0">
           {[
             {
               title: 'Restaurante',
@@ -820,7 +820,7 @@ function ManagementPanelShowcase() {
     >
       <SectionBackdrop className="bg-[radial-gradient(circle_at_18%_16%,rgba(94,162,255,0.08),transparent_26%),radial-gradient(circle_at_82%_22%,rgba(255,154,108,0.06),transparent_22%),linear-gradient(180deg,rgba(255,255,255,0.92),rgba(247,249,252,0.96))]" />
 
-      <div className="relative z-10 mx-auto grid max-w-[1680px] gap-10 lg:grid-cols-[minmax(320px,0.52fr)_minmax(0,1.48fr)] lg:items-start xl:gap-12">
+      <div className="relative z-10 mx-auto grid max-w-[1680px] gap-8 lg:grid-cols-[minmax(320px,0.52fr)_minmax(0,1.48fr)] lg:items-start xl:gap-12">
         <div>
           <SectionHeading
             eyebrow="Painel"
@@ -829,7 +829,7 @@ function ManagementPanelShowcase() {
             theme="light"
           />
 
-          <div className="interactive-panel mt-8 rounded-[2rem] border border-[#d8e0ec] bg-[linear-gradient(180deg,#ffffff_0%,#f7f9fc_100%)] p-6 shadow-[0_24px_60px_rgba(15,23,42,0.08)] section-reveal section-reveal-delay-1">
+          <div className="interactive-panel mt-8 rounded-[2rem] border border-[#d8e0ec] bg-[linear-gradient(180deg,#ffffff_0%,#f7f9fc_100%)] p-5 shadow-[0_24px_60px_rgba(15,23,42,0.08)] section-reveal section-reveal-delay-1 sm:p-6">
             <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[#7f8fa8]">
               cenas do gerencial
             </p>
@@ -851,7 +851,7 @@ function ManagementPanelShowcase() {
         </div>
 
         <div className="section-reveal section-reveal-delay-1">
-          <div className="panel-stage relative min-h-[52rem] overflow-hidden rounded-[2.2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(7,10,19,0.98),rgba(5,8,17,0.98))] p-4 shadow-[0_40px_120px_rgba(0,0,0,0.42)] sm:min-h-[56rem] sm:p-5 lg:min-h-[60rem]">
+          <div className="panel-stage relative min-h-[40rem] overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(7,10,19,0.98),rgba(5,8,17,0.98))] p-3 shadow-[0_40px_120px_rgba(0,0,0,0.42)] sm:min-h-[48rem] sm:rounded-[2.2rem] sm:p-4 md:min-h-[54rem] lg:min-h-[60rem] lg:p-5">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,154,108,0.12),transparent_24%),radial-gradient(circle_at_90%_18%,rgba(94,162,255,0.14),transparent_22%)]" />
 
             <div className="panel-cycle-card">
@@ -864,7 +864,7 @@ function ManagementPanelShowcase() {
               <ManagementCatalogCard />
             </div>
 
-            <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/10 bg-[#0b1324]/72 px-4 py-2 text-xs uppercase tracking-[0.24em] text-white/58 backdrop-blur-xl">
+            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/10 bg-[#0b1324]/72 px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-white/58 backdrop-blur-xl sm:bottom-5 sm:px-4 sm:text-xs sm:tracking-[0.24em]">
               <span className="panel-indicator-dot panel-indicator-dot-0" />
               <span className="panel-indicator-dot panel-indicator-dot-1" />
               <span className="panel-indicator-dot panel-indicator-dot-2" />
@@ -1045,7 +1045,7 @@ export function VellorLandingSections() {
               <div>
                 <SectionHeading
                   eyebrow="Contato"
-                  title="Coloque seu restaurante para vender com mais marca, mais controle e mais organizacao."
+                  title="Coloque seu restaurante para vender com mais marca, mais controle e mais organização."
                   description="Os canais abaixo ficam prontos para você trocar pelos contatos oficiais da Vellor e transformar esta seção em CTA direto para restaurantes."
                 />
 
@@ -1054,7 +1054,7 @@ export function VellorLandingSections() {
                     href={vellorContact.whatsapp.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#ffa77a_0%,#f27131_100%)] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(242,113,49,0.26)] transition-transform duration-300 hover:-translate-y-0.5"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#ffa77a_0%,#f27131_100%)] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(242,113,49,0.26)] transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto"
                   >
                     WhatsApp
                     <ArrowRight className="h-4 w-4" />
@@ -1064,7 +1064,7 @@ export function VellorLandingSections() {
                     href={vellorContact.instagram.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/[0.05] px-6 py-3.5 text-sm font-semibold text-white/86 backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.08]"
+                    className="inline-flex w-full items-center justify-center rounded-full border border-white/12 bg-white/[0.05] px-6 py-3.5 text-sm font-semibold text-white/86 backdrop-blur-xl transition-colors duration-300 hover:bg-white/[0.08] sm:w-auto"
                   >
                     Instagram
                   </a>
@@ -1081,7 +1081,7 @@ export function VellorLandingSections() {
                       href={channel.href}
                       target={channel.external ? '_blank' : undefined}
                       rel={channel.external ? 'noreferrer' : undefined}
-                      className={`group interactive-panel section-reveal ${getRevealDelayClass(index)} min-h-[19rem] rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 hover:bg-white/[0.06] lg:min-h-[21rem] lg:p-7`}
+                      className={`group interactive-panel section-reveal ${getRevealDelayClass(index)} min-h-[16rem] rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-1 hover:bg-white/[0.06] sm:min-h-[18rem] sm:p-6 lg:min-h-[21rem] lg:p-7`}
                     >
                       <span className="flex h-14 w-14 items-center justify-center rounded-[1.35rem] bg-[#ff9a6c]/16 text-[#ff9a6c] transition-colors duration-500 group-hover:bg-[#ff9a6c]/24 group-hover:text-white">
                         <Icon className="h-5 w-5" />
