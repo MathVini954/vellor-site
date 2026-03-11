@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import { VellorFoodShowcase } from './components/VellorFoodShowcase'
-import { VellorLandingSections } from './components/VellorLandingSections'
+import { VellorFoodLanding } from './components/VellorFoodLanding'
 
 function App() {
   useEffect(() => {
@@ -35,13 +34,13 @@ function App() {
         })
       },
       {
-        threshold: 0.08,
-        rootMargin: '0px 0px -8% 0px',
+        threshold: 0.1,
+        rootMargin: '0px 0px -10% 0px',
       },
     )
 
     revealNodes.forEach((node) => {
-      if (node.getBoundingClientRect().top <= window.innerHeight * 0.88) {
+      if (node.getBoundingClientRect().top <= window.innerHeight * 0.9) {
         node.classList.add('is-visible')
         return
       }
@@ -55,16 +54,7 @@ function App() {
     }
   }, [])
 
-  return (
-    <main className="min-h-screen bg-[#050816] text-white">
-      <div className="relative isolate overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(200,255,125,0.08),transparent_18%),radial-gradient(circle_at_80%_16%,rgba(94,162,255,0.12),transparent_20%)]" />
-
-        <VellorFoodShowcase />
-        <VellorLandingSections />
-      </div>
-    </main>
-  )
+  return <VellorFoodLanding />
 }
 
 export default App

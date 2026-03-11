@@ -243,6 +243,232 @@ function ProductCard({
   )
 }
 
+export function HeroPhoneMockup() {
+  return (
+    <div className="relative mx-auto flex h-[38rem] w-full items-center justify-center sm:h-[46rem] md:h-[53rem] lg:h-[60rem]">
+      <div className="pointer-events-none absolute inset-0 rounded-[2.4rem] bg-[radial-gradient(circle_at_center,rgba(242,113,49,0.16),transparent_24%),radial-gradient(circle_at_center,rgba(94,162,255,0.14),transparent_42%)] blur-3xl" />
+
+      <div className="relative z-20 w-full max-w-[22rem] sm:w-[88%] sm:max-w-[30rem] lg:max-w-[36rem]">
+        <div className="hero-device-enter">
+          <PhoneFrame>
+            <div className="relative h-[39rem] bg-[linear-gradient(180deg,#f7f2ec_0%,#f2ede6_100%)] sm:h-[48rem] md:h-[52rem] lg:h-[58rem]">
+              <div className="hide-scrollbar h-full overflow-y-auto px-3.5 pb-28 pt-4 sm:px-5 sm:pb-32 sm:pt-5">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={restaurantProfile.logoUrl}
+                      alt={restaurantProfile.name}
+                      className="h-11 w-11 rounded-full object-cover"
+                      loading="lazy"
+                    />
+                    <div>
+                      <p className="text-[1.45rem] font-medium tracking-[-0.04em] text-[#0f172a] sm:text-[1.75rem]">
+                        Ola, <span className="text-[#ef3b2d]">cliente</span>
+                      </p>
+                      <p className="mt-1 text-sm text-[#0b3d73]">
+                        {restaurantProfile.intro}
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    aria-label="Abrir carrinho"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-[#d6dde7] bg-[#f3f4f6] text-[#0f172a]"
+                  >
+                    <ShoppingCart className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <div className="mt-5 flex gap-3">
+                  <label className="flex flex-1 items-center gap-3 rounded-[1.3rem] border border-[#d6dde7] bg-[#f5f5f5] px-4 py-3.5">
+                    <Search className="h-4 w-4 text-[#94a3b8]" />
+                    <input
+                      readOnly
+                      value=""
+                      aria-label="Buscar pratos e categorias"
+                      placeholder="Buscar pratos e categorias"
+                      className="w-full border-none bg-transparent text-sm text-[#0f172a] outline-none placeholder:text-[#6b7280]"
+                    />
+                  </label>
+
+                  <button
+                    type="button"
+                    aria-label="Filtrar categorias"
+                    className="flex h-[54px] w-[54px] items-center justify-center rounded-[1.3rem] border border-[#d6dde7] bg-[#f3f4f6] text-[#0f172a]"
+                  >
+                    <SlidersHorizontal className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <div className="mt-6 flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-semibold text-[#0f172a] sm:text-[1.15rem]">
+                      Categorias
+                    </h3>
+                    <p className="mt-2 max-w-[15rem] text-[13px] leading-5 text-[#334155] sm:text-sm sm:leading-6">
+                      Sabores autorais, operacao agil e uma experiencia pensada para cada pedido.
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1.5 pt-1 text-sm font-medium text-[#0f172a]"
+                  >
+                    Ver cardapio
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <div className="hide-scrollbar mt-4 flex gap-3 overflow-x-auto pb-2">
+                  {categoryTiles.map((category, index) => (
+                    <CategoryCard key={category.name} category={category} index={index} />
+                  ))}
+                </div>
+
+                <div className="mt-1 h-1 w-[73%] rounded-full bg-[#c4c0ba]" />
+
+                <div className="mt-8">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-[1.15rem] font-semibold text-[#0f172a]">
+                        Ofertas em destaque
+                      </h3>
+                      <p className="mt-2 text-sm text-[#334155]">
+                        Campanhas publicadas pelo restaurante
+                      </p>
+                    </div>
+                  </div>
+
+                  <article className="mt-5 overflow-hidden rounded-[2rem] border border-[#2d3748]/18 bg-[#101828] shadow-[0_26px_50px_rgba(15,23,42,0.16)]">
+                    <div className="relative h-[15rem] overflow-hidden sm:h-[19rem]">
+                      <img
+                        src={restaurantProfile.offerImage}
+                        alt="Menu especial"
+                        className="offer-pan h-full w-full scale-110 object-cover blur-sm"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,24,39,0.22),rgba(17,24,39,0.58)_52%,rgba(7,16,39,0.92)_100%)]" />
+
+                      <div className="absolute inset-0 p-5 text-white">
+                        <div className="flex items-start justify-between gap-3">
+                          <span className="rounded-full border border-white/20 bg-black/20 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.3em] backdrop-blur-md">
+                            Especial do dia
+                          </span>
+                          <span className="rounded-full border border-white/20 bg-black/20 px-4 py-2 text-[11px] font-medium backdrop-blur-md">
+                            Valida ate 31/03/2026
+                          </span>
+                        </div>
+
+                        <div className="mt-10 sm:mt-16">
+                          <span className="inline-flex rounded-full border border-white/20 bg-black/22 px-4 py-2 text-[1.05rem] font-semibold backdrop-blur-md">
+                            Menu especial
+                          </span>
+                          <h4 className="mt-6 text-[2rem] font-semibold leading-[1.02] tracking-[-0.05em] sm:mt-8 sm:text-[2.5rem]">
+                            Prato do Dia
+                          </h4>
+                          <p className="mt-2 text-base text-white/90 sm:mt-3 sm:text-lg">
+                            Prato executivo
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-2 bg-[#0a1631] py-4">
+                      <span className="h-2.5 w-10 rounded-full bg-white" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/50" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
+                    </div>
+                  </article>
+                </div>
+
+                <div className="mt-8 flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-[1.15rem] font-semibold text-[#0f172a]">
+                      Mais pedidos
+                    </h3>
+                    <p className="mt-2 text-sm text-[#334155]">
+                      Baseado nos itens mais vendidos do restaurante
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1.5 pt-1 text-sm font-medium text-[#0f172a]"
+                  >
+                    Ver tudo
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
+                  {topSellingCards.map((card, index) => (
+                    <ProductCard key={card.title} card={card} index={index} />
+                  ))}
+                </div>
+
+                <div className="mt-8 flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-[1.15rem] font-semibold text-[#0f172a]">
+                      Sugestoes para voce
+                    </h3>
+                    <p className="mt-2 text-sm text-[#334155]">
+                      Selecao viva do cardapio real
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="inline-flex items-center gap-1.5 pt-1 text-sm font-medium text-[#0f172a]"
+                  >
+                    Ver tudo
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
+                  {suggestionCards.map((card, index) => (
+                    <ProductCard
+                      key={card.title}
+                      card={card}
+                      index={index + topSellingCards.length}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <nav className="dock-rise absolute inset-x-0 bottom-0 border-t border-[#d9e1ea] bg-[#f7f7f8]/96 px-4 py-2.5 backdrop-blur-xl sm:px-5 sm:py-3">
+                <div className="grid grid-cols-4 gap-2 sm:gap-3">
+                  {bottomNavItems.map((item) => {
+                    const Icon = item.icon
+
+                    return (
+                      <button
+                        key={item.label}
+                        type="button"
+                        className="flex flex-col items-center gap-1.5 rounded-[1rem] py-1"
+                      >
+                        <Icon
+                          className={`h-5 w-5 ${
+                            item.active ? 'text-[#ef3b2d]' : 'text-[#6b7da5]'
+                          }`}
+                        />
+                        <span className="text-[11px] font-medium text-[#0f172a]">
+                          {item.label}
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </nav>
+            </div>
+          </PhoneFrame>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function VellorFoodShowcase() {
   return (
     <section id="showcase" className="relative pb-20 pt-0 lg:pb-28">
