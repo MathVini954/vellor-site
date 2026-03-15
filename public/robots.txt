@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vellor-site.vercel.app/sitemap.xml

@@ -1,5 +1,5 @@
 ﻿import { useEffect, useState } from 'react'
-import type { ReactNode } from 'react'
+import type { FormEvent, ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import {
   ArrowRight,
@@ -39,7 +39,11 @@ type PlanItem = {
   name: string
   price: string
   period: string
-  features: string[]
+  description: string
+  features: Array<{
+    title: string
+    note?: string
+  }>
   cta: string
   featured?: boolean
 }
@@ -47,6 +51,13 @@ type PlanItem = {
 type FaqItem = {
   question: string
   answer: string
+}
+
+type FunctionalityItem = {
+  title: string
+  meta: string
+  description: string
+  screen: ReactNode
 }
 
 const navItems: NavItem[] = [
@@ -114,31 +125,31 @@ const features: CardItem[] = [
   {
     title: 'Cardapio Digital',
     description:
-      'Monte e atualize seu cardapio online com fotos, descricoes, precos e categorias.',
+      'Monte um cardapio digital para restaurante com fotos, categorias, precos e menu QR code restaurante.',
     icon: MonitorSmartphone,
   },
   {
     title: 'Pedidos via WhatsApp',
     description:
-      'O cliente escolhe no cardapio digital e o pedido vai direto para o WhatsApp do restaurante.',
+      'Receba pedidos via WhatsApp restaurante de forma organizada, com itens, observacoes e total.',
     icon: MessageCircleMore,
   },
   {
     title: 'Painel Gerencial',
     description:
-      'Acompanhe pedidos, faturamento, ticket medio e indicadores em tempo real.',
+      'Acompanhe pedido online restaurante, faturamento, ticket medio e indicadores em um painel simples.',
     icon: ChartNoAxesCombined,
   },
   {
     title: 'Controle de Mesas',
     description:
-      'Visualize o mapa de mesas em tempo real e identifique quais estao livres, ocupadas ou reservadas.',
+      'Tenha controle de mesas restaurante com status em tempo real para melhorar o atendimento no salao.',
     icon: LayoutGrid,
   },
   {
     title: 'Base de Clientes',
     description:
-      'Registre seus clientes, historico de pedidos e preferencias para vender com mais contexto.',
+      'Registre clientes, historico de pedidos e preferencias para vender com mais contexto e fidelizacao.',
     icon: Users,
   },
 ]
@@ -192,18 +203,32 @@ const benefitItems = [
   },
 ]
 
+const implementationFeatures = [
+  'Configuracao do restaurante no sistema',
+  'Personalizacao da pagina do restaurante',
+  'Cadastro inicial do cardapio',
+  'Geracao de QR Code',
+  'Treinamento do painel gerencial',
+  'Suporte na ativacao do sistema',
+]
+
 const plans: PlanItem[] = [
   {
     name: 'Plano Inicial',
     price: 'R$97',
     period: 'por mes',
+    description:
+      'Ideal para restaurantes que querem comecar a digitalizar o atendimento.',
     features: [
-      'Cardapio digital com ate 30 itens',
-      'Link e QR Code do cardapio',
-      'Pedidos via WhatsApp',
-      'Controle de ate 10 mesas',
-      '1 usuario operador',
-      'Suporte por e-mail',
+      { title: 'Cardapio digital completo' },
+      { title: 'Link e QR Code do cardapio' },
+      { title: 'Pedidos via WhatsApp organizados' },
+      { title: 'Controle de mesas' },
+      { title: 'Painel gerencial' },
+      { title: 'Base de clientes' },
+      { title: 'Atualizacao rapida do cardapio' },
+      { title: '1 usuario operador' },
+      { title: 'Suporte por e-mail' },
     ],
     cta: 'Comecar agora',
   },
@@ -211,16 +236,17 @@ const plans: PlanItem[] = [
     name: 'Plano Profissional',
     price: 'R$197',
     period: 'por mes',
+    description:
+      'Ideal para restaurantes que querem mais organizacao e controle da operacao.',
     features: [
-      'Cardapio digital ilimitado',
-      'Link, QR Code e pagina personalizada',
-      'Pedidos via WhatsApp + historico',
-      'Controle de ate 30 mesas',
-      'Painel gerencial completo',
-      'Base de clientes + fidelizacao',
-      'Criacao de ofertas e combos',
-      '3 usuarios operadores',
-      'Suporte via WhatsApp',
+      { title: 'Tudo do plano Inicial' },
+      { title: 'Pagina personalizada do restaurante' },
+      { title: 'Historico de pedidos' },
+      { title: 'Base de clientes com fidelizacao' },
+      { title: 'Criacao de ofertas e combos' },
+      { title: 'Painel gerencial completo' },
+      { title: 'Ate 3 usuarios operadores' },
+      { title: 'Suporte via WhatsApp' },
     ],
     cta: 'Quero este plano',
     featured: true,
@@ -229,16 +255,22 @@ const plans: PlanItem[] = [
     name: 'Plano Premium',
     price: 'R$347',
     period: 'por mes',
+    description:
+      'Para restaurantes que querem presenca digital completa e gestao avancada.',
     features: [
-      'Tudo do Plano Profissional',
-      'Mesas ilimitadas',
-      'Multiplas unidades',
-      'Relatorios avancados e exportacao',
-      'Integracoes com sistemas externos',
-      'Usuarios ilimitados',
-      'Implantacao assistida',
-      'Gerente de conta dedicado',
-      'Suporte prioritario',
+      { title: 'Tudo do plano Profissional' },
+      { title: 'Usuarios ilimitados' },
+      { title: 'Relatorios avancados' },
+      { title: 'Exportacao de dados' },
+      { title: 'Integracoes com sistemas externos' },
+      {
+        title: 'Site institucional do restaurante',
+        note: 'Pagina profissional com informacoes do restaurante, cardapio integrado e link para pedidos online.',
+      },
+      { title: 'Pagina personalizada integrada ao cardapio' },
+      { title: 'Implantacao assistida' },
+      { title: 'Gerente de conta dedicado' },
+      { title: 'Suporte prioritario' },
     ],
     cta: 'Falar com consultor',
   },
@@ -264,29 +296,29 @@ const trustItems = [
 
 const faqItems: FaqItem[] = [
   {
-    question: 'A Vellor Food serve para qualquer tipo de restaurante?',
+    question: 'Preciso instalar algo no restaurante?',
     answer:
-      'Sim. A Vellor Food foi desenvolvida para restaurantes, hamburguerias, pizzarias, cafeterias, food trucks e operacoes de delivery local.',
+      'Nao. A Vellor Food funciona no navegador do computador, tablet ou celular. O restaurante acessa tudo online.',
   },
   {
-    question: 'O pedido e feito dentro do sistema?',
+    question: 'A Vellor funciona para qualquer restaurante?',
     answer:
-      'O cliente escolhe no cardapio digital e, ao finalizar, o pedido e enviado pelo WhatsApp do proprio cliente para o numero do restaurante.',
+      'Sim. O sistema para restaurante atende hamburguerias, pizzarias, cafeterias, bares, delivery local e operacoes com salao.',
   },
   {
-    question: 'O cliente precisa instalar algum aplicativo?',
+    question: 'O pedido e feito pelo WhatsApp?',
     answer:
-      'Nao. O cardapio digital funciona pelo navegador do celular ou computador, sem precisar instalar nada.',
+      'Sim. O cliente monta o pedido online no cardapio digital e o envio acontece pelo WhatsApp para o restaurante.',
+  },
+  {
+    question: 'Posso cancelar quando quiser?',
+    answer:
+      'Sim. Nao ha contrato de fidelidade. O restaurante pode cancelar quando fizer sentido para a operacao.',
   },
   {
     question: 'Voces ajudam na implantacao?',
     answer:
-      'Sim. A equipe acompanha o cadastro do restaurante, a montagem do cardapio, a configuracao das mesas e os primeiros passos no painel.',
-  },
-  {
-    question: 'Posso cancelar o plano quando quiser?',
-    answer:
-      'Sim. Nao ha contrato de fidelidade nem multa por cancelamento. O plano pode ser interrompido quando fizer sentido para a operacao.',
+      'Sim. A implantacao inclui configuracao do restaurante, cadastro inicial do cardapio, QR Code e treinamento do sistema.',
   },
 ]
 
@@ -500,6 +532,32 @@ function DashboardPhone() {
   )
 }
 
+function ClientBaseScreen() {
+  return (
+    <div className="fd-app fd-app-dark">
+      <div className="fd-app-topbar">
+        <span>Base de Clientes</span>
+        <i />
+      </div>
+      <div className="fd-client-list">
+        {[
+          ['Mariana S.', '3 pedidos no mes', 'Prefere retirada'],
+          ['Rafael M.', 'Ticket medio R$ 61', 'Cliente frequente'],
+          ['Casa 24', 'Pede combo familia', 'Contato salvo'],
+        ].map(([name, info, tag]) => (
+          <div key={name} className="fd-client-card">
+            <div>
+              <strong>{name}</strong>
+              <span>{info}</span>
+            </div>
+            <small>{tag}</small>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 function WhatsAppMessage({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`fd-wa ${compact ? 'is-compact' : ''}`}>
@@ -527,11 +585,11 @@ function WhatsAppMessage({ compact = false }: { compact?: boolean }) {
 
 function ScreenThumb({
   title,
-  fileLabel,
+  meta,
   children,
 }: {
   title: string
-  fileLabel: string
+  meta: string
   children: ReactNode
 }) {
   return (
@@ -539,7 +597,7 @@ function ScreenThumb({
       <div className="fd-screen-inner">{children}</div>
       <div className="fd-screen-copy">
         <strong>{title}</strong>
-        <span>{fileLabel}</span>
+        <span>{meta}</span>
       </div>
     </article>
   )
@@ -581,6 +639,50 @@ export function VellorFoodExactLanding() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(0)
+  const [leadForm, setLeadForm] = useState({
+    name: '',
+    restaurant: '',
+    city: '',
+    phone: '',
+  })
+
+  const functionalityItems: FunctionalityItem[] = [
+    {
+      title: 'Cardapio digital para restaurante',
+      meta: 'cardapio-digital-restaurante',
+      description:
+        'Monte um cardapio digital para restaurante com fotos, categorias e atualizacao rapida.',
+      screen: <img src={mockupImages.pizza} alt="Cardapio digital para restaurante" className="fd-full-image" />,
+    },
+    {
+      title: 'Pedidos via WhatsApp restaurante',
+      meta: 'pedido-online-whatsapp-restaurante',
+      description:
+        'Organize pedido online restaurante com mensagem pronta no WhatsApp e menos erro no atendimento.',
+      screen: <WhatsAppMessage compact />,
+    },
+    {
+      title: 'Controle de mesas restaurante',
+      meta: 'controle-de-mesas-restaurante',
+      description:
+        'Veja mesas livres, ocupadas e reservadas para melhorar o fluxo do salao.',
+      screen: <TablesPhone />,
+    },
+    {
+      title: 'Painel gerencial do sistema para restaurante',
+      meta: 'sistema-para-restaurante',
+      description:
+        'Acompanhe pedidos, faturamento, ticket medio e operacao em um unico painel.',
+      screen: <DashboardPhone />,
+    },
+    {
+      title: 'Base de clientes e fidelizacao',
+      meta: 'menu-qr-code-restaurante',
+      description:
+        'Registre clientes, historico e comportamento para vender mais no proprio canal.',
+      screen: <ClientBaseScreen />,
+    },
+  ]
 
   useEffect(() => {
     const onScroll = () => {
@@ -592,6 +694,20 @@ export function VellorFoodExactLanding() {
 
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  function handleLeadFormSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const message = [
+      'Ola, quero conhecer a Vellor Food para meu restaurante.',
+      `Nome: ${leadForm.name || '-'}`,
+      `Restaurante: ${leadForm.restaurant || '-'}`,
+      `Cidade: ${leadForm.city || '-'}`,
+      `Telefone: ${leadForm.phone || '-'}`,
+    ].join('\n')
+
+    window.open(whatsappLink(message), '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <main className="fd-landing">
@@ -653,23 +769,23 @@ export function VellorFoodExactLanding() {
               <SectionTag>Sistema para Restaurantes</SectionTag>
             </div>
             <h1 className="section-reveal fd-delay-1">
-              Organize os pedidos do seu restaurante <span>em um so lugar</span>
+              Sistema para Restaurantes com <span>Cardapio Digital e Pedidos via WhatsApp</span>
             </h1>
             <p className="section-reveal fd-delay-2">
-              Sistema para restaurantes com cardapio digital, pedidos online via
-              WhatsApp, controle de mesas, ofertas e gestao de clientes.
+              Organize pedidos, cardapio e atendimento do seu restaurante em um
+              unico painel simples e profissional.
             </p>
             <div className="fd-hero-actions section-reveal fd-delay-3">
               <a
-                href={whatsappLink('Quero conhecer a Vellor Food.')}
+                href={whatsappLink('Ola, quero conhecer a Vellor Food para meu restaurante.')}
                 target="_blank"
                 rel="noreferrer"
                 className="fd-btn fd-btn-primary"
               >
-                Quero conhecer a Vellor Food
+                Solicitar demonstracao
               </a>
               <a href="#como-funciona" className="fd-btn fd-btn-secondary">
-                Ver demonstracao
+                Ver como funciona
               </a>
             </div>
             <div className="fd-hero-trust section-reveal fd-delay-4">
@@ -723,8 +839,8 @@ export function VellorFoodExactLanding() {
         <div className="fd-container">
           <SectionHeader
             tag="Problemas reais"
-            title="Seu restaurante perde tempo com atendimento desorganizado?"
-            description="Esses problemas sao mais comuns do que parecem e a Vellor Food foi feita exatamente para resolve-los."
+            title="Seu restaurante sofre com isso?"
+            description="Essas dores aparecem todos os dias em operacoes de restaurante e afetam atendimento, faturamento e experiencia do cliente."
             centered
           />
           <div className="fd-card-grid fd-card-grid-five">
@@ -775,24 +891,34 @@ export function VellorFoodExactLanding() {
         <div className="fd-container fd-showcase-grid">
           <div>
             <SectionHeader
-              tag="Telas do produto"
-              title="Um sistema feito para o dia a dia do seu restaurante"
-              description="As imagens seguem os mockups ja criados e o pedido recebido foi recriado em estilo WhatsApp com nome e numero ficticios."
+              tag="Funcionalidades do sistema"
+              title="Cardapio digital, pedido online restaurante e painel gerencial em um unico sistema"
+              description="A Vellor Food combina cardapio digital para restaurante, pedidos via WhatsApp restaurante, controle de mesas restaurante e base de clientes em uma operacao centralizada."
               dark
             />
+            <div className="fd-keyword-row section-reveal">
+              {[
+                'cardapio digital para restaurante',
+                'sistema para restaurante',
+                'pedidos via WhatsApp restaurante',
+                'controle de mesas restaurante',
+                'pedido online restaurante',
+                'menu QR code restaurante',
+              ].map((keyword) => (
+                <span key={keyword}>{keyword}</span>
+              ))}
+            </div>
             <div className="fd-screens-grid">
-              <ScreenThumb title="Cardapio Digital" fileLabel="cardapio-digital.png">
-                <img src={mockupImages.pizza} alt="Cardapio digital" className="fd-full-image" />
-              </ScreenThumb>
-              <ScreenThumb title="Pedidos Online" fileLabel="pedidos-online.png">
-                <WhatsAppMessage compact />
-              </ScreenThumb>
-              <ScreenThumb title="Painel Gerencial" fileLabel="painel-gerencial.png">
-                <DashboardPhone />
-              </ScreenThumb>
-              <ScreenThumb title="Controle de Mesas" fileLabel="controle-mesas.png">
-                <TablesPhone />
-              </ScreenThumb>
+              {functionalityItems.map((item) => (
+                <ScreenThumb key={item.title} title={item.title} meta={item.meta}>
+                  <div className="fd-screen-stack">
+                    <div className="fd-screen-stack-visual">{item.screen}</div>
+                    <div className="fd-screen-stack-copy">
+                      <p>{item.description}</p>
+                    </div>
+                  </div>
+                </ScreenThumb>
+              ))}
             </div>
           </div>
           <div className="fd-showcase-phone section-reveal fd-delay-2">
@@ -830,9 +956,30 @@ export function VellorFoodExactLanding() {
           <SectionHeader
             tag="Planos e precos"
             title="Escolha o plano ideal para o seu restaurante"
-            description="Sem taxa de implantacao. Sem contrato de fidelidade. Cancele quando quiser."
+            description="Sem contrato de fidelidade. O plano Profissional segue como destaque para operacoes que precisam de mais controle."
             centered
           />
+          <div className="fd-implementation-card section-reveal">
+            <div className="fd-implementation-head">
+              <SectionTag>Implantacao unica</SectionTag>
+              <div>
+                <strong>R$497</strong>
+                <span>Pagamento unico</span>
+              </div>
+            </div>
+            <p>
+              Inclui toda a configuracao inicial para colocar o restaurante no ar
+              com rapidez e com o painel pronto para a equipe operar.
+            </p>
+            <div className="fd-implementation-grid">
+              {implementationFeatures.map((feature) => (
+                <div key={feature} className="fd-implementation-item">
+                  <BadgeCheck className="h-4 w-4" />
+                  <span>{feature}</span>
+                </div>
+              ))}
+            </div>
+          </div>
           <div className="fd-pricing-grid">
             {plans.map((plan, index) => (
               <article
@@ -843,10 +990,16 @@ export function VellorFoodExactLanding() {
                 <p className="fd-plan-name">{plan.name}</p>
                 <div className="fd-plan-price">{plan.price}</div>
                 <div className="fd-plan-period">{plan.period}</div>
+                <p className="fd-plan-description">{plan.description}</p>
                 <div className="fd-plan-divider" />
                 <ul className="fd-plan-features">
                   {plan.features.map((feature) => (
-                    <li key={feature}>{feature}</li>
+                    <li key={feature.title}>
+                      <div>
+                        <span>{feature.title}</span>
+                        {feature.note ? <small>{feature.note}</small> : null}
+                      </div>
+                    </li>
                   ))}
                 </ul>
                 <a
@@ -923,25 +1076,99 @@ export function VellorFoodExactLanding() {
         </div>
       </section>
 
+      <section className="fd-section" id="lead-form">
+        <div className="fd-container">
+          <div className="fd-lead-grid">
+            <div className="section-reveal">
+              <SectionHeader
+                tag="Demonstracao"
+                title="Solicite uma demonstracao para o seu restaurante"
+                description="Se voce quer entender como funciona o sistema para restaurante da Vellor Food, envie seus dados e continue a conversa pelo WhatsApp."
+              />
+              <div className="fd-lead-copy">
+                <p>
+                  A equipe apresenta como o cardapio digital para restaurante, o
+                  pedido online restaurante e o painel gerencial se encaixam na sua
+                  operacao.
+                </p>
+              </div>
+            </div>
+
+            <form className="fd-lead-form section-reveal fd-delay-2" onSubmit={handleLeadFormSubmit}>
+              <label>
+                <span>Nome</span>
+                <input
+                  type="text"
+                  value={leadForm.name}
+                  onChange={(event) =>
+                    setLeadForm((current) => ({ ...current, name: event.target.value }))
+                  }
+                  placeholder="Seu nome"
+                />
+              </label>
+              <label>
+                <span>Restaurante</span>
+                <input
+                  type="text"
+                  value={leadForm.restaurant}
+                  onChange={(event) =>
+                    setLeadForm((current) => ({
+                      ...current,
+                      restaurant: event.target.value,
+                    }))
+                  }
+                  placeholder="Nome do restaurante"
+                />
+              </label>
+              <label>
+                <span>Cidade</span>
+                <input
+                  type="text"
+                  value={leadForm.city}
+                  onChange={(event) =>
+                    setLeadForm((current) => ({ ...current, city: event.target.value }))
+                  }
+                  placeholder="Sua cidade"
+                />
+              </label>
+              <label>
+                <span>Telefone</span>
+                <input
+                  type="tel"
+                  value={leadForm.phone}
+                  onChange={(event) =>
+                    setLeadForm((current) => ({ ...current, phone: event.target.value }))
+                  }
+                  placeholder="(00) 00000-0000"
+                />
+              </label>
+              <button type="submit" className="fd-btn fd-btn-primary">
+                Enviar no WhatsApp
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
       <section className="fd-final-cta" id="contato">
         <div className="fd-container fd-final-inner">
           <div className="section-reveal">
             <SectionTag>Comece hoje</SectionTag>
           </div>
           <h2 className="section-reveal fd-delay-1">
-            Leve mais organizacao para o seu restaurante <span>com a Vellor Food</span>
+            Leve mais organizacao para o seu restaurante
           </h2>
           <p className="section-reveal fd-delay-2">
             Implantacao em 1 dia. Sem contrato de fidelidade. Suporte proximo.
           </p>
           <div className="fd-final-actions section-reveal fd-delay-3">
             <a
-              href={whatsappLink('Ola! Gostaria de solicitar uma demonstracao da Vellor Food.')}
+              href={whatsappLink('Ola, quero conhecer a Vellor Food para meu restaurante.')}
               target="_blank"
               rel="noreferrer"
               className="fd-btn fd-btn-primary"
             >
-              Solicitar demonstracao
+              Quero conhecer a Vellor Food
             </a>
             <a href="#planos" className="fd-btn fd-btn-dark">
               Ver planos e precos
@@ -1000,6 +1227,17 @@ export function VellorFoodExactLanding() {
           </div>
         </div>
       </footer>
+
+      <a
+        href={whatsappLink('Ola, quero conhecer a Vellor Food para meu restaurante.')}
+        target="_blank"
+        rel="noreferrer"
+        className="fd-whatsapp-float"
+        aria-label="Falar no WhatsApp sobre a Vellor Food"
+      >
+        <MessageCircleMore className="h-5 w-5" />
+        <span>WhatsApp</span>
+      </a>
     </main>
   )
 }
