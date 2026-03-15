@@ -1,12 +1,14 @@
+﻿import { useState } from 'react'
+import type { ReactNode } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import {
   ArrowRight,
   BadgeCheck,
   BookOpenText,
+  ChevronDown,
   ClipboardList,
   Clock3,
   Globe,
-  LayoutDashboard,
   MessageCircleMore,
   QrCode,
   ShieldCheck,
@@ -44,30 +46,70 @@ type PlanItem = {
   featured?: boolean
 }
 
+type FaqItem = {
+  question: string
+  answer: string
+}
+
+const mockupImages = {
+  burger:
+    'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80',
+  pizza:
+    'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80',
+  dessert:
+    'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=80',
+  offer:
+    'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80',
+}
+
+const menuPreviewItems = [
+  {
+    title: 'Smash Bacon Duplo',
+    price: 'R$ 42,90',
+    image: mockupImages.burger,
+  },
+  {
+    title: 'Pizza Burrata',
+    price: 'R$ 72,00',
+    image: mockupImages.pizza,
+  },
+  {
+    title: 'Brownie com Sorvete',
+    price: 'R$ 24,90',
+    image: mockupImages.dessert,
+  },
+]
+
 const painPoints: CardItem[] = [
   {
-    title: 'WhatsApp desorganizado',
+    title: 'Pedidos perdidos no WhatsApp',
     description:
-      'Pedidos chegam misturados, sem padrao e com risco alto de erro no atendimento.',
+      'Mensagens misturadas, sem contexto e sem historico geram erro no atendimento.',
     icon: MessageCircleMore,
   },
   {
-    title: 'Atendimento mais lento',
+    title: 'Cardapio dificil de atualizar',
     description:
-      'A equipe perde tempo confirmando itens, valores e observacoes em varios canais.',
-    icon: Clock3,
-  },
-  {
-    title: 'Cardapio desatualizado',
-    description:
-      'O cliente encontra informacoes confusas e hesita na hora de pedir.',
+      'Preco, disponibilidade e combos ficam desatualizados e a equipe perde tempo para corrigir tudo.',
     icon: BookOpenText,
   },
   {
-    title: 'Operacao sem visibilidade',
+    title: 'Falta de controle das mesas',
     description:
-      'Fica dificil controlar salao, retirada e online ao mesmo tempo com clareza.',
-    icon: LayoutDashboard,
+      'Sem visibilidade do salao, o atendimento perde ritmo e a ocupacao fica menos eficiente.',
+    icon: Store,
+  },
+  {
+    title: 'Horario de pico confuso',
+    description:
+      'Pedidos duplicados, observacoes perdidas e repasse manual criam ruido na operacao.',
+    icon: Clock3,
+  },
+  {
+    title: 'Clientes sem historico',
+    description:
+      'Sem registro do que cada cliente pede, fica dificil fidelizar e criar campanhas inteligentes.',
+    icon: Users,
   },
 ]
 
@@ -140,18 +182,21 @@ const benefits: CardItem[] = [
 const steps: StepItem[] = [
   {
     step: '01',
-    title: 'O cliente acessa o cardapio',
-    description: 'Entra pelo celular e visualiza os produtos de forma simples.',
+    title: 'Cadastre seu restaurante',
+    description:
+      'Configure nome, logo, horario de funcionamento e informacoes de contato em poucos minutos.',
   },
   {
     step: '02',
-    title: 'Faz o pedido ou consulta a mesa',
-    description: 'O pedido pode ser feito online e enviado de forma organizada.',
+    title: 'Monte cardapio, ofertas e operacao',
+    description:
+      'Adicione fotos, precos, categorias, combos, mesas e deixe a equipe pronta para operar.',
   },
   {
     step: '03',
-    title: 'O restaurante recebe e gerencia',
-    description: 'Tudo fica centralizado no gerencial para facilitar o atendimento.',
+    title: 'Receba pedidos e gerencie com controle',
+    description:
+      'Compartilhe o cardapio digital, receba pedidos no WhatsApp e acompanhe tudo em tempo real.',
   },
 ]
 
@@ -177,65 +222,101 @@ const plans: PlanItem[] = [
   {
     name: 'Plano Inicial',
     description:
-      'Ideal para restaurantes que querem organizar o atendimento e ter um cardapio digital.',
+      'Ideal para restaurantes que querem cardapio digital e pedidos organizados.',
     features: [
-      'App gerencial do restaurante',
-      'Cadastro e gestao de produtos',
-      'Cardapio digital para visualizacao dos clientes',
-      'QR Code do cardapio',
+      'Cardapio digital com ate 30 itens',
+      'Link e QR Code do cardapio',
+      'Pedidos via WhatsApp',
+      'Controle de ate 10 mesas',
+      '1 usuario operador',
+      'Suporte por e-mail',
     ],
-    monthly: 'R$ 129 / mes',
-    yearly: 'R$ 1290 / ano',
-    setup: 'Implantacao R$ 600',
+    monthly: 'R$ 97 / mes',
+    yearly: 'Sem fidelidade',
+    setup: 'Sem taxa de implantacao',
     cta: 'Comecar agora',
   },
   {
     name: 'Plano Profissional',
     description:
-      'Para restaurantes que querem receber pedidos online organizados diretamente no WhatsApp.',
+      'Para operacoes que querem mais controle, historico e um fluxo mais profissional.',
     features: [
-      'Tudo do plano Inicial',
-      'Pedido online pelo cardapio',
-      'Pedido enviado direto para o WhatsApp do restaurante',
-      'Link do cardapio para divulgar no Instagram e WhatsApp',
-      'Mensagem automatica com pedido organizado',
-      'Historico de pedidos no gerencial',
+      'Cardapio digital ilimitado',
+      'Link, QR Code e pagina personalizada',
+      'Pedidos via WhatsApp + historico',
+      'Controle de ate 30 mesas',
+      'Painel gerencial completo',
+      'Base de clientes + fidelizacao',
+      'Ofertas e combos',
+      '3 usuarios operadores',
+      'Suporte via WhatsApp',
     ],
-    monthly: 'R$ 179 / mes',
-    yearly: 'R$ 1790 / ano',
-    setup: 'Implantacao R$ 900',
-    cta: 'Quero receber pedidos online',
+    monthly: 'R$ 197 / mes',
+    yearly: 'Sem fidelidade',
+    setup: 'Mais escolhido',
+    cta: 'Quero este plano',
     featured: true,
   },
   {
     name: 'Plano Premium',
-    description: 'Para restaurantes que querem presenca digital completa.',
+    description: 'Para restaurantes com operacao mais robusta e necessidade de escala.',
     features: [
-      'Tudo do plano Profissional',
-      'Site profissional do restaurante',
-      'Pagina com cardapio e botao de pedido',
-      'Informacoes do restaurante',
-      'Integracao com WhatsApp',
-      'Layout personalizado',
+      'Tudo do Plano Profissional',
+      'Mesas ilimitadas',
+      'Multiplas unidades',
+      'Relatorios avancados e exportacao',
+      'Integracoes com sistemas externos',
+      'Usuarios ilimitados',
+      'Implantacao assistida',
+      'Gerente de conta dedicado',
+      'Suporte prioritario',
     ],
-    monthly: 'R$ 249 / mes',
-    yearly: 'R$ 2490 / ano',
-    setup: 'Implantacao R$ 1200',
-    cta: 'Quero presenca digital completa',
+    monthly: 'R$ 347 / mes',
+    yearly: 'Sob medida para escalar',
+    setup: 'Implantacao assistida',
+    cta: 'Falar com consultor',
   },
 ]
 
 const navigation = [
-  { label: 'Solucao', href: '#solucao' },
+  { label: 'Funcionalidades', href: '#solucao' },
   { label: 'Como funciona', href: '#como-funciona' },
-  { label: 'Beneficios', href: '#beneficios' },
   { label: 'Planos', href: '#planos' },
+  { label: 'FAQ', href: '#faq' },
+]
+
+const faqs: FaqItem[] = [
+  {
+    question: 'A Vellor Food serve para qualquer tipo de restaurante?',
+    answer:
+      'Sim. A plataforma atende restaurantes, hamburguerias, pizzarias, cafeterias, food trucks e operacoes de delivery local.',
+  },
+  {
+    question: 'O pedido e feito dentro do sistema?',
+    answer:
+      'O cliente monta o pedido no cardapio digital e finaliza enviando a mensagem estruturada para o WhatsApp do restaurante.',
+  },
+  {
+    question: 'O cliente precisa instalar algum aplicativo?',
+    answer:
+      'Nao. O cardapio digital funciona direto no navegador do celular ou computador, sem app para instalar.',
+  },
+  {
+    question: 'Voces ajudam na implantacao?',
+    answer:
+      'Sim. A equipe acompanha a configuracao inicial do restaurante, do cardapio e dos primeiros passos no painel.',
+  },
+  {
+    question: 'Posso cancelar o plano quando quiser?',
+    answer:
+      'Sim. Nao ha contrato de fidelidade nem multa de cancelamento.',
+  },
 ]
 
 function whatsappPlanLink(planName: string) {
   const baseNumber = vellorContact.whatsapp.href.replace('https://wa.me/', '')
   const message = encodeURIComponent(
-    `Olá! Tenho interesse no plano ${planName} da Vellor Food.`,
+    `Ola! Tenho interesse no plano ${planName} da Vellor Food.`,
   )
 
   return `https://wa.me/${baseNumber}?text=${message}`
@@ -289,10 +370,61 @@ function FeatureCard({
   )
 }
 
-export function VellorFoodLanding() {
+function OrderMessagePreview({ compact = false }: { compact?: boolean }) {
   return (
-    <main className="landing-shell min-h-screen bg-[#060606] text-white">
-      <section className="relative isolate overflow-hidden border-b border-white/10">
+    <div
+      className={`whatsapp-preview ${compact ? 'min-h-[15rem] rounded-[1.1rem] p-3 text-[10px]' : ''}`}
+    >
+      <div className={`whatsapp-day ${compact ? 'mb-2.5 text-[9px]' : ''}`}>Hoje</div>
+      <div className={`whatsapp-bubble ${compact ? 'rounded-[1rem] p-3' : ''}`}>
+        <p>Novo pedido - Casa do Patio</p>
+        <p>Cliente: Clara Monteiro</p>
+        <p>Telefone: (81) 99876-4312</p>
+        <p>Tipo: Entrega</p>
+        <p>Endereco: Rua das Acacias, 148</p>
+        <p>Bairro: Boa Vista</p>
+        <p>Itens:</p>
+        <p>- 1x Smash Bacon Duplo - R$ 42,90</p>
+        <p>Personalizacao: Sem cebola</p>
+        <p>Subtotal: R$ 42,90</p>
+        <p>Taxa de entrega: R$ 0,00</p>
+        <p>Total: R$ 42,90</p>
+        <p>Pagamento: Pix</p>
+        <p>Observacao: Sem observacoes</p>
+        <span className="whatsapp-time">10:08</span>
+      </div>
+    </div>
+  )
+}
+
+function ScreenTile({
+  title,
+  description,
+  children,
+}: {
+  title: string
+  description: string
+  children: ReactNode
+}) {
+  return (
+    <article className="section-reveal rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-3 backdrop-blur-xl">
+      <div className="overflow-hidden rounded-[1rem] border border-white/8 bg-[#090d15]">
+        {children}
+      </div>
+      <h3 className="mt-4 text-base font-semibold tracking-[-0.03em] text-white">
+        {title}
+      </h3>
+      <p className="mt-2 text-sm leading-6 text-white/52">{description}</p>
+    </article>
+  )
+}
+
+export function VellorFoodLanding() {
+  const [openFaq, setOpenFaq] = useState<number | null>(0)
+
+  return (
+    <main className="landing-shell min-h-screen bg-transparent text-white">
+      <section className="landing-band landing-band-hero relative isolate overflow-hidden border-b border-white/10">
         <div className="landing-grid absolute inset-0 opacity-60" />
         <div className="landing-glow landing-glow-left" />
         <div className="landing-glow landing-glow-right" />
@@ -331,7 +463,7 @@ export function VellorFoodLanding() {
               rel="noreferrer"
               className="landing-button landing-whatsapp-cta hidden bg-[#25d366] text-white lg:inline-flex lg:px-5 lg:py-3"
             >
-              Falar com um de nossos especialistas
+              Solicitar demonstracao
             </a>
           </header>
 
@@ -339,44 +471,46 @@ export function VellorFoodLanding() {
             id="top"
             className="grid gap-14 pb-6 pt-14 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center lg:pt-20"
           >
-            <div className="max-w-2xl">
-              <span className="section-reveal inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white/66">
-                Plataforma para restaurantes
+            <div className="hero-intro max-w-2xl">
+              <span className="hero-intro-step inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white/66">
+                Sistema para restaurantes
               </span>
 
-              <h1 className="section-reveal mt-7 text-[2.9rem] font-semibold leading-[0.96] tracking-[-0.07em] text-white sm:text-[4.35rem]">
-                Organize pedidos, mesas e atendimento do seu restaurante em um so
-                lugar
+              <h1 className="hero-intro-step mt-7 text-[2.9rem] font-semibold leading-[0.96] tracking-[-0.07em] text-white sm:text-[4.35rem]">
+                Organize os pedidos do seu restaurante em um so lugar
               </h1>
 
-              <p className="section-reveal mt-6 max-w-xl text-base leading-8 text-white/66 sm:text-lg">
-                A Vellor Food ajuda restaurantes a terem cardapio digital, pedidos
-                online e gestao simples para o dia a dia.
+              <p className="hero-intro-step mt-6 max-w-xl text-base leading-8 text-white/66 sm:text-lg">
+                Cardapio digital, pedidos via WhatsApp, controle de mesas, ofertas
+                e gestao de clientes em um painel simples e profissional.
               </p>
 
-              <div className="section-reveal mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="hero-intro-step mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
                   href={vellorContact.whatsapp.href}
                   target="_blank"
                   rel="noreferrer"
                   className="landing-button landing-whatsapp-cta bg-[#25d366] text-white"
                 >
-                  Falar com um de nossos especialistas
+                  Quero conhecer a Vellor Food
                 </a>
-                <a href="#planos" className="landing-button landing-button-primary">
-                  Quero apresentar no meu restaurante
+                <a
+                  href="#como-funciona"
+                  className="landing-button landing-button-primary"
+                >
+                  Ver demonstracao
                 </a>
               </div>
 
-              <p className="section-reveal mt-6 text-sm text-white/48 sm:text-base">
+              <p className="hero-intro-step mt-6 text-sm text-white/48 sm:text-base">
                 Implantacao rapida • suporte inicial • sistema simples de usar
               </p>
 
-              <div className="section-reveal mt-10 grid gap-4 sm:grid-cols-3">
+              <div className="hero-intro-step mt-10 grid gap-4 sm:grid-cols-3">
                 {[
-                  ['Cardapio digital', 'Experiencia moderna para clientes'],
-                  ['Pedidos online', 'Fluxo mais claro para a equipe'],
-                  ['Controle operacional', 'Mais organizacao no dia a dia'],
+                  ['Cardapio digital', 'Fotos, categorias e QR Code para vender melhor'],
+                  ['Pedidos via WhatsApp', 'Mensagem estruturada para a equipe receber'],
+                  ['Controle operacional', 'Mesas, historico e painel em um fluxo so'],
                 ].map(([title, text]) => (
                   <div
                     key={title}
@@ -396,7 +530,30 @@ export function VellorFoodLanding() {
         </div>
       </section>
 
-      <section className="landing-section">
+      <section className="border-y border-white/8 py-8">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-4 px-4 text-center sm:px-6 lg:px-8">
+          <span className="text-xs font-medium uppercase tracking-[0.24em] text-white/42">
+            Feito para negocios como
+          </span>
+          {[
+            'Hamburguerias',
+            'Pizzarias',
+            'Restaurantes',
+            'Cafeterias',
+            'Delivery local',
+            'Food trucks',
+          ].map((item) => (
+            <strong
+              key={item}
+              className="text-sm font-semibold uppercase tracking-[0.18em] text-white/68"
+            >
+              {item}
+            </strong>
+          ))}
+        </div>
+      </section>
+
+      <section className="landing-band landing-band-warm landing-section">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             eyebrow="Dores"
@@ -404,7 +561,7 @@ export function VellorFoodLanding() {
             description="Quando o atendimento depende de improviso, o cliente sente a demora e a equipe trabalha sob pressao desnecessaria."
           />
 
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
             {painPoints.map((item) => (
               <FeatureCard key={item.title} item={item} />
             ))}
@@ -412,7 +569,10 @@ export function VellorFoodLanding() {
         </div>
       </section>
 
-      <section id="solucao" className="landing-section border-y border-white/8 bg-white/[0.02]">
+      <section
+        id="solucao"
+        className="landing-band landing-band-cool landing-section border-y border-white/8"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             eyebrow="Solucao"
@@ -428,7 +588,7 @@ export function VellorFoodLanding() {
         </div>
       </section>
 
-      <section id="como-funciona" className="landing-section">
+      <section id="como-funciona" className="landing-band landing-band-deep landing-section">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-start">
             <SectionHeader
@@ -461,7 +621,173 @@ export function VellorFoodLanding() {
         </div>
       </section>
 
-      <section id="beneficios" className="landing-section border-y border-white/8 bg-white/[0.02]">
+      <section
+        id="produto"
+        className="relative isolate overflow-hidden border-y border-white/8 bg-[linear-gradient(180deg,#06080f_0%,#0a0f18_100%)] py-20"
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(232,98,26,0.12),transparent_20%),radial-gradient(circle_at_82%_24%,rgba(232,98,26,0.1),transparent_18%)]" />
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-center lg:px-8">
+          <div>
+            <SectionHeader
+              eyebrow="Telas do produto"
+              title="Um sistema feito para o dia a dia do seu restaurante"
+              description="Reaproveitamos as imagens ja usadas nos mockups atuais da Vellor e criamos a tela de pedido recebido no estilo WhatsApp com dados ficticios."
+            />
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <ScreenTile
+                title="Cardapio digital"
+                description="Imagem ja presente nos mockups atuais para destacar o produto."
+              >
+                <img
+                  src={mockupImages.pizza}
+                  alt="Cardapio digital da Vellor Food"
+                  className="aspect-[9/14] w-full object-cover"
+                />
+              </ScreenTile>
+
+              <ScreenTile
+                title="Pedido recebido"
+                description="Mensagem de pedido no WhatsApp com nome e telefone ficticios."
+              >
+                <OrderMessagePreview compact />
+              </ScreenTile>
+
+              <ScreenTile
+                title="Painel gerencial"
+                description="Resumo rapido dos pedidos e faturamento do dia."
+              >
+                <div className="aspect-[9/14] bg-[linear-gradient(180deg,#0f1118_0%,#171d29_100%)] p-4 text-white">
+                  <div className="flex items-center justify-between rounded-2xl bg-white/6 px-3 py-2">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/72">
+                      Dashboard
+                    </span>
+                    <span className="text-[10px] text-[#ff9a6c]">Hoje</span>
+                  </div>
+                  <div className="mt-4 grid grid-cols-2 gap-3">
+                    <div className="rounded-2xl bg-white/6 p-3">
+                      <p className="text-[10px] text-white/48">Faturamento</p>
+                      <strong className="mt-3 block text-xl">R$2,4k</strong>
+                    </div>
+                    <div className="rounded-2xl bg-white/6 p-3">
+                      <p className="text-[10px] text-white/48">Pedidos</p>
+                      <strong className="mt-3 block text-xl">47</strong>
+                    </div>
+                  </div>
+                  <div className="mt-4 rounded-2xl bg-white/6 p-3">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/52">
+                      Recentes
+                    </p>
+                    {[
+                      ['#0047 Rafael', 'Entregue'],
+                      ['#0046 Larissa', 'Em preparo'],
+                      ['#0045 Vinicius', 'Aguardando'],
+                    ].map(([label, status]) => (
+                      <div
+                        key={label}
+                        className="mt-3 flex items-center justify-between gap-3 border-b border-white/6 pb-2 last:border-none last:pb-0"
+                      >
+                        <span className="text-[11px] text-white/74">{label}</span>
+                        <small className="rounded-full bg-white/10 px-2 py-1 text-[9px] text-[#ff9a6c]">
+                          {status}
+                        </small>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </ScreenTile>
+
+              <ScreenTile
+                title="Controle de mesas"
+                description="Visao simples das mesas livres, ocupadas e reservadas."
+              >
+                <div className="aspect-[9/14] bg-[linear-gradient(180deg,#0f1118_0%,#171d29_100%)] p-4 text-white">
+                  <div className="flex items-center justify-between rounded-2xl bg-white/6 px-3 py-2">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/72">
+                      Mesas
+                    </span>
+                    <span className="text-[10px] text-[#ff9a6c]">58% ocup.</span>
+                  </div>
+                  <div className="mt-4 grid grid-cols-3 gap-3">
+                    {[
+                      ['01', 'Livre', 'bg-white/8 text-white/58'],
+                      ['02', 'Ocup.', 'bg-[#e8621a]/20 text-[#ff9a6c]'],
+                      ['03', 'Livre', 'bg-white/8 text-white/58'],
+                      ['04', 'Ocup.', 'bg-[#e8621a]/20 text-[#ff9a6c]'],
+                      ['05', 'Reserv.', 'bg-[#ffd84a]/16 text-[#ffd84a]'],
+                      ['06', 'Livre', 'bg-white/8 text-white/58'],
+                      ['07', 'Ocup.', 'bg-[#e8621a]/20 text-[#ff9a6c]'],
+                      ['08', 'Livre', 'bg-white/8 text-white/58'],
+                      ['09', 'Ocup.', 'bg-[#e8621a]/20 text-[#ff9a6c]'],
+                    ].map(([number, label, className]) => (
+                      <div
+                        key={number}
+                        className={`rounded-2xl px-2 py-4 text-center ${className}`}
+                      >
+                        <strong className="block text-lg">{number}</strong>
+                        <span className="mt-1 block text-[10px]">{label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </ScreenTile>
+            </div>
+          </div>
+
+          <div className="section-reveal">
+            <div className="mx-auto max-w-[22rem] overflow-hidden rounded-[2.6rem] border border-white/12 bg-[linear-gradient(180deg,rgba(18,20,28,0.98),rgba(7,8,12,0.98))] p-[10px] shadow-[0_40px_120px_rgba(0,0,0,0.56)]">
+              <div className="overflow-hidden rounded-[2.2rem] bg-[#f6efe8]">
+                <div className="relative h-[40rem] overflow-hidden">
+                  <img
+                    src={mockupImages.offer}
+                    alt="Oferta especial da Vellor Food"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,17,24,0.12),rgba(14,17,24,0.72)_62%,rgba(7,10,19,0.92)_100%)]" />
+                  <div className="absolute inset-x-0 top-0 flex justify-center pt-4">
+                    <div className="h-6 w-24 rounded-full bg-black/80" />
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+                    <div className="inline-flex rounded-full border border-white/18 bg-black/24 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] backdrop-blur-md">
+                      Menu em destaque
+                    </div>
+                    <h3 className="mt-5 text-[2rem] font-semibold leading-[1.02] tracking-[-0.05em]">
+                      Visual forte para vender mais no seu proprio canal
+                    </h3>
+                    <p className="mt-4 text-sm leading-7 text-white/76">
+                      Cardapio, ofertas e pedidos chegando com clareza para a equipe e
+                      com mais valor percebido pelo cliente.
+                    </p>
+                    <div className="mt-6 grid gap-3">
+                      {menuPreviewItems.map((item) => (
+                        <div
+                          key={item.title}
+                          className="flex items-center gap-3 rounded-[1.25rem] border border-white/12 bg-white/10 p-3 backdrop-blur-md"
+                        >
+                          <img
+                            src={item.image}
+                            alt={item.title}
+                            className="h-14 w-14 rounded-[1rem] object-cover"
+                          />
+                          <div className="min-w-0">
+                            <p className="truncate text-sm font-semibold">{item.title}</p>
+                            <p className="mt-1 text-xs text-white/64">{item.price}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="beneficios"
+        className="landing-band landing-band-soft landing-section border-y border-white/8"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             eyebrow="Beneficios"
@@ -478,7 +804,7 @@ export function VellorFoodLanding() {
         </div>
       </section>
 
-      <section id="planos" className="landing-section">
+      <section id="planos" className="landing-band landing-band-cool landing-section">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             eyebrow="Planos"
@@ -547,7 +873,7 @@ export function VellorFoodLanding() {
         </div>
       </section>
 
-      <section className="landing-section border-y border-white/8 bg-white/[0.02]">
+      <section className="landing-band landing-band-warm landing-section border-t border-white/8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
             eyebrow="Confianca"
@@ -563,7 +889,61 @@ export function VellorFoodLanding() {
         </div>
       </section>
 
-      <section className="landing-section">
+      <section
+        id="faq"
+        className="landing-band landing-band-soft landing-section border-t border-white/8"
+      >
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            eyebrow="Duvidas frequentes"
+            title="Perguntas frequentes"
+            description="Respostas para as duvidas mais comuns sobre a Vellor Food."
+            centered
+          />
+
+          <div className="mt-12 space-y-3">
+            {faqs.map((item, index) => {
+              const isOpen = openFaq === index
+
+              return (
+                <article
+                  key={item.question}
+                  className="section-reveal overflow-hidden rounded-[1.6rem] border border-white/10 bg-white/[0.04] px-5 backdrop-blur-xl"
+                >
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    aria-expanded={isOpen}
+                  >
+                    <span className="text-lg font-semibold tracking-[-0.03em] text-white">
+                      {item.question}
+                    </span>
+                    <span
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-white transition-transform duration-300 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                    >
+                      <ChevronDown className="h-4 w-4" />
+                    </span>
+                  </button>
+                  <div
+                    className={`grid transition-[grid-template-rows] duration-300 ${
+                      isOpen ? 'grid-rows-[1fr] pb-5' : 'grid-rows-[0fr]'
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="text-sm leading-7 text-white/62">{item.answer}</p>
+                    </div>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="landing-band landing-band-cta landing-section pt-10 sm:pt-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="section-reveal overflow-hidden rounded-[2.4rem] border border-white/10 bg-[linear-gradient(135deg,#ffffff_0%,#e7e7e7_46%,#cfcfcf_100%)] p-8 text-black shadow-[0_30px_90px_rgba(0,0,0,0.25)] sm:p-10 lg:p-14">
             <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
@@ -647,3 +1027,4 @@ export function VellorFoodLanding() {
     </main>
   )
 }
+

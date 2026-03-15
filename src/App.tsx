@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
-import { VellorFoodLanding } from './components/VellorFoodLanding'
+import { VellorFoodExactLanding } from './components/VellorFoodExactLanding'
 
 function App() {
   useEffect(() => {
-    document.documentElement.classList.add('reveal-ready')
-
     const revealNodes = Array.from(
       document.querySelectorAll<HTMLElement>('.section-reveal'),
     )
@@ -18,6 +16,7 @@ function App() {
     )
 
     if (reducedMotionQuery.matches) {
+      document.documentElement.classList.add('reveal-ready')
       revealNodes.forEach((node) => node.classList.add('is-visible'))
       return
     }
@@ -48,13 +47,15 @@ function App() {
       observer.observe(node)
     })
 
+    document.documentElement.classList.add('reveal-ready')
+
     return () => {
       observer.disconnect()
       document.documentElement.classList.remove('reveal-ready')
     }
   }, [])
 
-  return <VellorFoodLanding />
+  return <VellorFoodExactLanding />
 }
 
 export default App
