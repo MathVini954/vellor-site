@@ -638,7 +638,7 @@ function ShowcasePhone() {
 export function VellorFoodExactLanding() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [openFaq, setOpenFaq] = useState<number | null>(0)
+  const [openFaqs, setOpenFaqs] = useState<Set<number>>(new Set([0]))
   const [leadForm, setLeadForm] = useState({
     name: '',
     restaurant: '',
@@ -1051,14 +1051,24 @@ export function VellorFoodExactLanding() {
           />
           <div className="fd-faq-list">
             {faqItems.map((item, index) => {
-              const isOpen = openFaq === index
+              const isOpen = openFaqs.has(index)
 
               return (
                 <article key={item.question} className={`fd-faq-item section-reveal ${isOpen ? 'is-open' : ''}`}>
                   <button
                     type="button"
                     className="fd-faq-question"
-                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    onClick={() => {
+                      setOpenFaqs((prev) => {
+                        const next = new Set(prev)
+                        if (next.has(index)) {
+                          next.delete(index)
+                        } else {
+                          next.add(index)
+                        }
+                        return next
+                      })
+                    }}
                     aria-expanded={isOpen}
                   >
                     <span>{item.question}</span>
