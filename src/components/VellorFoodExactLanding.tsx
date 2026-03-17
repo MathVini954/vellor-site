@@ -1054,7 +1054,7 @@ export function VellorFoodExactLanding() {
               const isOpen = openFaqs.has(index)
 
               return (
-                <article key={item.question} className={`fd-faq-item section-reveal ${isOpen ? 'is-open' : ''}`}>
+                <article key={item.question} className={`fd-faq-item ${isOpen ? 'is-open' : ''}`}>
                   <button
                     type="button"
                     className="fd-faq-question"
