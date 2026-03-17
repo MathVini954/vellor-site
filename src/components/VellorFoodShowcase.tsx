@@ -263,7 +263,7 @@ export function HeroPhoneMockup() {
                     />
                     <div>
                       <p className="text-[1.45rem] font-medium tracking-[-0.04em] text-[#0f172a] sm:text-[1.75rem]">
-                        Ola, <span className="text-[#ef3b2d]">cliente</span>
+                        Olá, <span className="text-[#ef3b2d]">cliente</span>
                       </p>
                       <p className="mt-1 text-sm text-[#0b3d73]">
                         {restaurantProfile.intro}
@@ -307,7 +307,7 @@ export function HeroPhoneMockup() {
                       Categorias
                     </h3>
                     <p className="mt-2 max-w-[15rem] text-[13px] leading-5 text-[#334155] sm:text-sm sm:leading-6">
-                      Sabores autorais, operacao agil e uma experiencia pensada para cada pedido.
+                      Sabores autorais, operação ágil e uma experiência pensada para cada pedido.
                     </p>
                   </div>
 
@@ -315,7 +315,7 @@ export function HeroPhoneMockup() {
                     type="button"
                     className="inline-flex items-center gap-1.5 pt-1 text-sm font-medium text-[#0f172a]"
                   >
-                    Ver cardapio
+                    Ver cardápio
                     <ChevronRight className="h-4 w-4" />
                   </button>
                 </div>
@@ -356,7 +356,7 @@ export function HeroPhoneMockup() {
                             Especial do dia
                           </span>
                           <span className="rounded-full border border-white/20 bg-black/20 px-4 py-2 text-[11px] font-medium backdrop-blur-md">
-                            Valida ate 31/03/2026
+                            Válida até 31/03/2026
                           </span>
                         </div>
 
@@ -410,10 +410,10 @@ export function HeroPhoneMockup() {
                 <div className="mt-8 flex items-start justify-between gap-3">
                   <div>
                     <h3 className="text-[1.15rem] font-semibold text-[#0f172a]">
-                      Sugestoes para voce
+                      Sugestões para você
                     </h3>
                     <p className="mt-2 text-sm text-[#334155]">
-                      Selecao viva do cardapio real
+                      Seleção viva do cardápio real
                     </p>
                   </div>
 

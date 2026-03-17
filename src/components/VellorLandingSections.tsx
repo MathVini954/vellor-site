@@ -1,4 +1,4 @@
-﻿import type { LucideIcon } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import {
   ArrowLeft,
   ArrowRight,
@@ -440,7 +440,7 @@ function ManagementDashboardCard() {
               { label: 'Cardápio', icon: BookOpenText },
               { label: 'Ofertas', icon: Ticket },
               { label: 'Clientes', icon: UserRound },
-              { label: 'Configuracoes', icon: Settings2 },
+              { label: 'Configurações', icon: Settings2 },
             ].map((item) => {
               const Icon = item.icon
 
@@ -575,7 +575,7 @@ function ManagementDashboardCard() {
             <div className="mt-5 grid gap-4 text-base leading-8 text-[#5d7396]">
               <p>Cardápio e ofertas publicados aqui aparecem no link do seu restaurante.</p>
               <p>Pedidos feitos pelo cliente entram no painel automaticamente.</p>
-              <p>Configuracoes de entrega e WhatsApp seguem o mesmo fluxo do pedido.</p>
+              <p>Configurações de entrega e WhatsApp seguem o mesmo fluxo do pedido.</p>
             </div>
           </div>
         </aside>
@@ -600,7 +600,7 @@ function ManagementCatalogCard() {
 
         <div className="mt-8">
           <p className="text-xs uppercase tracking-[0.3em] text-white/42">
-            Operacao
+            Operação
           </p>
           <div className="mt-4 grid gap-3">
             {[
@@ -609,7 +609,7 @@ function ManagementCatalogCard() {
               { label: 'Cardápio', icon: BookOpenText, active: true },
               { label: 'Ofertas', icon: Ticket },
               { label: 'Clientes', icon: UserRound },
-              { label: 'Configuracoes', icon: Settings2 },
+              { label: 'Configurações', icon: Settings2 },
             ].map((item) => {
               const Icon = item.icon
 
@@ -787,11 +787,11 @@ function ManagementCatalogCard() {
               body: 'O painel central acompanha o app público com os dados reais do seu restaurante.',
             },
             {
-              title: 'Catalogo vivo',
+              title: 'Catálogo vivo',
               body: 'Produtos, categorias e personalizações ficam organizados para publicar sem retrabalho.',
             },
             {
-              title: 'Publicacao',
+              title: 'Publicação',
               body: 'Toda alteração salva no gerencial reflete no cardápio público do restaurante.',
             },
           ].map((card) => (
@@ -831,7 +831,7 @@ function ManagementPanelShowcase() {
 
           <div className="interactive-panel mt-8 rounded-[2rem] border border-[#d8e0ec] bg-[linear-gradient(180deg,#ffffff_0%,#f7f9fc_100%)] p-5 shadow-[0_24px_60px_rgba(15,23,42,0.08)] section-reveal section-reveal-delay-1 sm:p-6">
             <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[#7f8fa8]">
-              cenas do gerencial
+              Cenas do gerencial
             </p>
             <div className="mt-5 grid gap-3">
               {[
